@@ -67,6 +67,12 @@ export default function Navbar() {
               >
                 Results
               </button>
+              <button
+                onClick={() => scrollToSection('model-spotlight')}
+                className="text-text-main hover:text-primary transition-colors font-medium"
+              >
+                Model Spotlight
+              </button>
             </div>
           </div>
           <div className="md:hidden">
@@ -117,10 +123,15 @@ export default function Navbar() {
             >
               Results
             </button>
+            <button
+              onClick={() => scrollToSection('model-spotlight')}
+              className="block w-full text-left px-3 py-2 text-text-main hover:text-primary hover:bg-secondary/30 rounded-md transition-colors font-medium"
+            >
+              Model Spotlight
+            </button>
           </div>
         </div>
       )}
     </nav>
   )
 }
-

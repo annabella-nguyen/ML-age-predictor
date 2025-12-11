@@ -1,6 +1,24 @@
+import Image from 'next/image'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
 import Footer from '@/components/Footer'
+
+const predictionSamples = [
+  { name: 'Samion Suwito', age: 25.85, src: '/images/samion-suwito..avif' },
+  { name: 'Rachel Hu', age: 12.83, src: '/images/rachel-hu..avif' },
+  { name: 'Cindy Sanchez', age: 19.83, src: '/images/cindy-sanchez..avif' },
+  { name: 'Isa Larios', age: 27.21, src: '/images/isa-larios..avif' },
+  { name: 'Kinton Duong', age: 14.44, src: '/images/kinton-duong..avif' },
+  { name: 'Socrates Osorio', age: 12.08, src: '/images/socrates-osorio..avif' },
+  { name: 'Anika Sikka', age: 22.05, src: '/images/anika-sikka..avif' },
+  { name: 'Renata Martinez Camargo', age: 20.33, src: '/images/renata-martinez-camargo..avif' },
+  { name: 'Angie Zhu', age: 14.62, src: '/images/angie-zhu..avif' },
+  { name: 'Ash Yadav', age: 12.88, src: '/images/ash-yadav..avif' },
+  { name: 'Nicole Martinez', age: 16.05, src: '/images/nicole-martinez..avif' },
+  { name: 'Jaanavi Thanamala', age: 21.2, src: '/images/jaanavi-thanamala..avif' },
+  { name: 'Jessica He', age: 16.14, src: '/images/jessica-he..avif' },
+  { name: 'Patrick Mendoza', age: 22.81, src: '/images/patrick-mendoza..avif' }
+] as const
 
 export default function Home() {
   return (
@@ -11,8 +29,8 @@ export default function Home() {
       {/* About Section */}
       <section id="about" className="py-20 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
-          <div className="flex items-center justify-center gap-3 mb-8">
-            <svg className="w-10 h-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <div className="flex items-start justify-center gap-3 mb-8">
+            <svg className="w-10 h-10 text-primary mt-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
             </svg>
             <h2 className="text-4xl font-bold text-text-main">About</h2>
@@ -262,9 +280,10 @@ export default function Home() {
                 <svg className="w-5 h-5 text-primary mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
-                <span><strong>Loss Function:</strong> We used <strong>Mean Squared Error (MSE)</strong> between the 
-                predicted age and true age. MSE is appropriate for regression tasks like age prediction, as 
-                it penalizes larger errors more heavily.</span>
+                <span><strong>Loss Function:</strong> We used <strong>Mean Absolute Error (MAE)</strong> between the 
+                predicted age and true age. MAE directly measures the average absolute gap in years and is 
+                less sensitive to outliers than MSE, which helped keep training stable when a few images had 
+                mislabeled or hard-to-predict ages.</span>
               </p>
               <p className="text-text-main/80 mb-4">
                 <strong>Training Procedure:</strong> We fine-tuned the pretrained ResNet18 model on our age 
@@ -315,7 +334,8 @@ export default function Home() {
               </h3>
               <p className="text-text-main/80 mb-6">
                 Our ResNet18 model was trained over 5 epochs, with performance metrics tracked on both 
-                training and validation sets. The model showed consistent improvement throughout training.
+                training and validation sets. The model saw rapid gains in the first few epochs, with the 
+                strongest validation metrics at epoch 4.
               </p>
               
               {/* Training Metrics Table */}
@@ -333,38 +353,38 @@ export default function Home() {
                   <tbody className="text-text-main">
                     <tr className="border-b border-text-main/10">
                       <td className="px-6 py-4">1</td>
-                      <td className="px-6 py-4">74.807</td>
-                      <td className="px-6 py-4">7.38</td>
-                      <td className="px-6 py-4">118.328</td>
-                      <td className="px-6 py-4">8.10</td>
+                      <td className="px-6 py-4">783.953</td>
+                      <td className="px-6 py-4">24.71</td>
+                      <td className="px-6 py-4">516.596</td>
+                      <td className="px-6 py-4">20.06</td>
                     </tr>
                     <tr className="border-b border-text-main/10 bg-white/50">
                       <td className="px-6 py-4">2</td>
-                      <td className="px-6 py-4">52.503</td>
-                      <td className="px-6 py-4">6.00</td>
-                      <td className="px-6 py-4">110.975</td>
-                      <td className="px-6 py-4">7.78</td>
+                      <td className="px-6 py-4">253.562</td>
+                      <td className="px-6 py-4">13.35</td>
+                      <td className="px-6 py-4">143.258</td>
+                      <td className="px-6 py-4">9.47</td>
                     </tr>
                     <tr className="border-b border-text-main/10">
                       <td className="px-6 py-4">3</td>
-                      <td className="px-6 py-4">36.195</td>
-                      <td className="px-6 py-4">4.85</td>
-                      <td className="px-6 py-4">131.144</td>
-                      <td className="px-6 py-4">8.41</td>
+                      <td className="px-6 py-4">76.455</td>
+                      <td className="px-6 py-4">6.65</td>
+                      <td className="px-6 py-4">119.855</td>
+                      <td className="px-6 py-4">8.06</td>
                     </tr>
                     <tr className="border-b border-text-main/10 bg-white/50">
-                      <td className="px-6 py-4">4</td>
-                      <td className="px-6 py-4">27.586</td>
-                      <td className="px-6 py-4">4.10</td>
-                      <td className="px-6 py-4">105.837</td>
-                      <td className="px-6 py-4">7.47</td>
+                      <td className="px-6 py-4"><strong>4 (Best)</strong></td>
+                      <td className="px-6 py-4">36.848</td>
+                      <td className="px-6 py-4">4.56</td>
+                      <td className="px-6 py-4 font-semibold text-primary">75.542</td>
+                      <td className="px-6 py-4 font-semibold text-primary">6.06</td>
                     </tr>
                     <tr className="bg-white/50">
-                      <td className="px-6 py-4 font-semibold">5 (Best)</td>
-                      <td className="px-6 py-4">18.237</td>
-                      <td className="px-6 py-4">3.30</td>
-                      <td className="px-6 py-4 font-semibold text-primary">98.908</td>
-                      <td className="px-6 py-4 font-semibold text-primary">7.08</td>
+                      <td className="px-6 py-4">5</td>
+                      <td className="px-6 py-4">27.112</td>
+                      <td className="px-6 py-4">3.94</td>
+                      <td className="px-6 py-4">81.066</td>
+                      <td className="px-6 py-4">6.38</td>
                     </tr>
                   </tbody>
                 </table>
@@ -381,25 +401,25 @@ export default function Home() {
                   <svg className="w-5 h-5 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <strong>Best Validation Loss:</strong> 98.908 (Epoch 5)
+                  <strong>Best Validation Loss:</strong> 75.542 (Epoch 4)
                 </li>
                 <li className="flex items-center gap-2">
                   <svg className="w-5 h-5 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <strong>Best Validation MAE:</strong> 7.08 years (Epoch 5)
+                  <strong>Best Validation MAE:</strong> 6.06 years (Epoch 4)
                 </li>
                 <li className="flex items-center gap-2">
                   <svg className="w-5 h-5 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <strong>Final Training Loss:</strong> 18.237
+                  <strong>Final Training Loss:</strong> 27.112
                 </li>
                 <li className="flex items-center gap-2">
                   <svg className="w-5 h-5 text-primary flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                   </svg>
-                  <strong>Final Training MAE:</strong> 3.30 years
+                  <strong>Final Training MAE:</strong> 3.94 years
                 </li>
               </ul>
             </div>
@@ -416,8 +436,8 @@ export default function Home() {
               </p>
               <p className="text-text-main/80 mb-6">
                 Yes, our ResNet18 model demonstrates that age prediction from facial images is feasible. 
-                The model achieves a validation Mean Absolute Error (MAE) of approximately <strong>7.08 years</strong>, 
-                meaning that on average, the model's predictions are within about 7 years of the true age. 
+                The model achieves a validation Mean Absolute Error (MAE) of approximately <strong>6.06 years</strong>, 
+                meaning that on average, the model's predictions are within about 6 years of the true age. 
                 This level of accuracy suggests that automated age estimation could be useful for applications 
                 where approximate age ranges are sufficient, such as demographic analysis or age-appropriate 
                 content filtering.
@@ -439,7 +459,7 @@ export default function Home() {
                   <svg className="w-5 h-5 text-primary mt-1 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
-                  <span><strong>Accuracy Limitations:</strong> An MAE of ~7 years means predictions can be off 
+                  <span><strong>Accuracy Limitations:</strong> An MAE of ~6 years means predictions can be off 
                   by several years, which may not be acceptable for applications requiring precise age verification</span>
                 </li>
                 <li className="flex items-start gap-2">
@@ -476,8 +496,48 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Model Spotlight Section */}
+      <section id="model-spotlight" className="py-20 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-5xl mx-auto">
+          <div className="flex flex-col items-center gap-2 mb-8">
+            <div className="flex items-center gap-3">
+              <svg className="w-10 h-10 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M1.5 12s3.5-6 10.5-6 10.5 6 10.5 6-3.5 6-10.5 6S1.5 12 1.5 12z" />
+                <circle cx="12" cy="12" r="3" strokeWidth={2} />
+              </svg>
+              <h2 className="text-4xl font-bold text-text-main">Model Spotlight</h2>
+            </div>
+            <p className="text-text-main/70 text-lg text-center">Hover over each image to see the model&apos;s predicted age!</p>
+          </div>
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {predictionSamples.map((person) => (
+              <div
+                key={person.name}
+                className="group relative overflow-hidden rounded-2xl bg-white shadow-lg border border-text-main/10"
+              >
+                <div className="relative h-72 w-full">
+                  <Image
+                    src={person.src}
+                    alt={`Predicted age for ${person.name}`}
+                    fill
+                    sizes="(min-width: 1024px) 320px, (min-width: 640px) 50vw, 100vw"
+                    className="object-cover transition duration-500 group-hover:scale-105"
+                    priority
+                  />
+                  <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-0 group-hover:opacity-100 transition duration-300" />
+                  <div className="absolute inset-x-0 bottom-3 flex items-center justify-center opacity-0 group-hover:opacity-100 transition duration-300 pointer-events-none">
+                    <div className="px-3 py-1.5 rounded-lg bg-white/85 backdrop-blur-sm text-text-main font-semibold shadow-md border border-white/50">
+                      Predicted {person.age.toFixed(2)}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <Footer />
     </main>
   )
 }
-
